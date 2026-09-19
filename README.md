@@ -1,5 +1,11 @@
 # Acil Durum Drone Koordinasyon Sistemi
 
+![C](https://img.shields.io/badge/C-A8B9CC?logo=c&logoColor=black)
+![pthreads](https://img.shields.io/badge/POSIX-pthreads-555)
+![SDL2](https://img.shields.io/badge/SDL2-2.x-1E88E5)
+![json-c](https://img.shields.io/badge/json--c-0.18-orange)
+![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS-lightgrey)
+
 Bu proje, acil durumlarda drone'ların merkezi bir sunucu aracılığıyla koordine edilerek kazazedelere yardım ulaştırmasını simüle eden bir istemci-sunucu uygulamasıdır. Sistem, gerçek dünya drone sürü koordinasyon sistemlerini yansıtmak için thread senkronizasyonu, thread-safe veri yapıları ve ağ iletişimi kullanmaktadır.
 
 ## Proje Özeti
@@ -30,14 +36,34 @@ Acil Durum Drone Koordinasyon Sistemi, aşağıdaki bileşenlerden oluşmaktadı
 
 ## Kurulum
 
+### Ubuntu / Debian
+
 ```bash
-# Gerekli kütüphaneleri yükleyin
 sudo apt-get update
 sudo apt-get install build-essential libsdl2-dev libjson-c-dev
-
-# Projeyi derleyin
-make all
 ```
+
+### macOS (Homebrew)
+
+```bash
+brew install sdl2 json-c
+```
+
+> `Makefile` içindeki `SDLCFLAGS`, `SDLLDFLAGS`, `JSONC_CFLAGS` ve `JSONC_LDFLAGS` değişkenleri Homebrew'un `/opt/homebrew/Cellar/...` yollarına sürüm numarasıyla işaret eder. Sizde farklı bir sürüm kuruluysa bu yolları güncelleyin veya `pkg-config --cflags --libs sdl2 json-c` çıktısını kullanın.
+
+### Derleme
+
+```bash
+make all          # server, drone_client ve viewer_client hedeflerinin hepsi
+make clean        # derleme çıktılarını temizler
+```
+
+| Make hedefi | Ürettiği / çalıştırdığı |
+|-------------|--------------------------|
+| `server_target` | `server` |
+| `client_target` | `drone_client` |
+| `viewer_target` | `viewer_client` |
+| `run_server`, `run_client`, `run_viewer` | İlgili hedefi derleyip çalıştırır |
 
 ## Kullanım
 
@@ -60,6 +86,15 @@ make all
 ```bash
 ./viewer_client
 ```
+
+## Testler
+
+`tests/` klasöründe iki bağımsız test programı bulunur:
+
+- `listtest.c` — thread-safe bağlı liste için eşzamanlı ekleme/silme testi
+- `sdltest.c` — SDL2 kurulumunu ve pencere açılışını doğrulayan duman testi
+
+Proje ödevinin orijinal tanımı için [part1.md](part1.md) dosyasına bakılabilir.
 
 ## Proje Yapısı
 
