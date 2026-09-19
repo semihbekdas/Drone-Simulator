@@ -1,0 +1,19 @@
+# Build outputs
+*.o
+*.a
+*.so
+*.dylib
+*.dSYM/
+server
+drone_client
+viewer_client
+drone_simulator
+drone_client_exec
+viewer_client_exec
+tests/listtest
+tests/sdltest
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
